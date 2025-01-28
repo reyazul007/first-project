@@ -1,5 +1,5 @@
+<pre>
 <h1>CodePen Clone</h1>
-<br><pre>
 Welcome to the CodePen Clone project! This is a clone of the popular CodePen platform, allowing users to write and preview HTML, CSS, and JavaScript code in real-time.
 
 <h1>Features</h1>
