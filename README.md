@@ -1,4 +1,4 @@
-<pre>
+
 <h1>CodePen Clone</h1>
 Welcome to the CodePen Clone project! This is a clone of the popular CodePen platform, allowing users to write and preview HTML, CSS, and JavaScript code in real-time.
 
@@ -18,4 +18,4 @@ JavaScript
 
 <h1>Acknowledgments</h1>
 Special thanks to the creators of CodePen for the inspiration.
-Thanks to all the contributors and the open-source community.</pre>
+Thanks to all the contributors and the open-source community.
