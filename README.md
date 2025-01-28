@@ -3,14 +3,14 @@
 Welcome to the CodePen Clone project! This is a clone of the popular CodePen platform, allowing users to write and preview HTML, CSS, and JavaScript code in real-time.
 
 <h1>Features</h1>
-Live preview of HTML, CSS, and JavaScript code
-Syntax highlighting and error checking
-Responsive design
+Live preview of HTML, CSS and JavaScript code,
+Syntax highlighting and error checking,
+Responsive design,
 User-friendly interface
 
 <h1>Technologies Used React</h1>
-Codemirror
-CSS
+Codemirror,
+CSS,
 JavaScript
 
 <h1>Author</h1>
