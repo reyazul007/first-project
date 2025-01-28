@@ -1,6 +1,7 @@
-import { Box, Container, styled } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-//import Header from "./Header";
+
+
 import { Controlled as ControlledEditor } from "react-codemirror2";
 
 import "codemirror/lib/codemirror.css";
@@ -10,6 +11,14 @@ import "codemirror/mode/javascript/javascript";
 import "codemirror/mode/css/css";
 
 import "../App.css";
+
+const Container = styled(Box)`
+flex-grow: 1;
+flex-basis: 0;
+display: flex;
+flex-direction: column;
+padding: 0 8px 8px;
+`
 
 
 const Heading = styled(Box)`
@@ -26,7 +35,11 @@ const Header = styled(Box)`
   font-weight: 700;
 `;
 
-const Editor = ({heading, icon, color}) => {
+const Editor = ({heading, icon, color,value, onChange}) => {
+  const handleChange =(editor, data, value)=>{
+     onChange(value);
+
+  }
   return (
     <Container>
       <Header>
@@ -54,9 +67,8 @@ const Editor = ({heading, icon, color}) => {
       <ControlledEditor
         className="controlled-editor"
         options={{
-          // lineWrapping: true,
-          //lint: true,
-          //mode: 'xml',
+          value: {value},
+          onBeforeChange:{handleChange},
           theme: "material",
           lineNumbers: true,
         }}
