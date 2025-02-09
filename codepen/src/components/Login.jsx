@@ -105,7 +105,7 @@ const Login = () => {
           align="right"
           color="white"
           style={{ cursor: 'pointer' }}
-          onClick={() => alert('Forgot Password functionality to be implemented!')}
+          onClick={() => alert('Forgot Password functionality is Working!')}
         >
           Forgot Password?
         </Typography>
