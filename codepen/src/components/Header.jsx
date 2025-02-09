@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, styled, Button } from "@mui/material";
-import CloudIcon from '@mui/icons-material/Cloud';
-import SettingsIcon from '@mui/icons-material/Settings';
+import CloudIcon from "@mui/icons-material/Cloud";
+import SettingsIcon from "@mui/icons-material/Settings";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled(AppBar)`
   background: #060606;
@@ -10,14 +11,14 @@ const Container = styled(AppBar)`
   }
 `;
 
-const Logo = styled('img')`
+const Logo = styled("img")`
   width: 40px;
   @media (max-width: 768px) {
     width: 30px;
   }
 `;
 
-const ButtonContainer = styled('div')`
+const ButtonContainer = styled("div")`
   display: flex;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -37,18 +38,29 @@ const ResponsiveButton = styled(Button)`
 `;
 
 const Header = () => {
-  const logo =
-    "https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png";
+  const navigate = useNavigate();
+
   return (
     <>
       <Container position="static">
         <Toolbar style={{ justifyContent: "space-between" }}>
-          <Logo src={logo} alt="logo" /><ButtonContainer>
+          <Logo
+            src="https://blog.codepen.io/wp-content/uploads/2023/09/logo-white.png"
+            alt="logo"
+          />
+          <ButtonContainer>
             <ResponsiveButton variant="contained" color="primary">
-              <CloudIcon style={{ marginRight: "4px" }} /> Save</ResponsiveButton>
-            <ResponsiveButton variant="contained" color="primary"><SettingsIcon style={{ marginRight: "4px" }} /> Settings</ResponsiveButton>
-            <ResponsiveButton variant="contained" color="success"> Sign up</ResponsiveButton>
-            <ResponsiveButton variant="contained" color="primary"> Log in</ResponsiveButton>
+              <CloudIcon style={{ marginRight: "4px" }} /> Save
+            </ResponsiveButton>
+            <ResponsiveButton variant="contained" color="primary">
+              <SettingsIcon style={{ marginRight: "4px" }} /> Settings
+            </ResponsiveButton>
+            <ResponsiveButton variant="contained" color="success" onClick={() => navigate("/signup")}>
+              Sign up
+            </ResponsiveButton>
+            <ResponsiveButton variant="contained" color="primary" onClick={() => navigate("/login")}>
+              Log in
+            </ResponsiveButton>
           </ButtonContainer>
         </Toolbar>
       </Container>

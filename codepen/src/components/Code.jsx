@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import React, { useContext } from 'react';
 import Editor from "./Editor";
 import { Box, styled } from "@mui/material";
-import { DataContext } from "../context/DataProvider";
+import { CodeContext } from '../context/CodeContext';
 
 const Container = styled(Box)`
   display: flex;
@@ -13,7 +13,8 @@ const Container = styled(Box)`
 `;
 
 const Code = () => {
-  const { html, setHtml, css, setCss, js, setJs } = useContext(DataContext);
+  const { html, setHtml, css, setCss, js, setJs } = useContext(CodeContext);
+
   return (
     <Container>
       <Editor
