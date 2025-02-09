@@ -24,7 +24,7 @@ const Result = () => {
 
     const timeout = setTimeout(() => {
       setSrc(srcCode);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timeout);
   }, [html, css, js]);
