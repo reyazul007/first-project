@@ -1,9 +1,6 @@
 import { useState } from "react";
-
-
 import { Box, styled } from "@mui/material";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
-
 
 import { Controlled as ControlledEditor } from "react-codemirror2";
 
@@ -17,12 +14,12 @@ import "../App.css";
 
 const Container = styled(Box)`
   flex-grow: 1;
-  flex-basis: 1;
+  flex-basis: 0;
   display: flex;
   flex-direction: column;
-  padding: 8px 8px;
+  padding:0 8px 8px;
   @media (max-width: 768px) {
-    padding: 4px 4px;
+  padding: 4px 4px;
   }
 `;
 
@@ -39,12 +36,12 @@ const Heading = styled(Box)`
 const Header = styled(Box)`
   display: flex;
   background: #060606;
-  color: #aaaebc;
+  color: #AAAEBC;
   justify-content: space-between;
   font-weight: 700;
 `;
 
-const Editor = ({heading, icon, color, value, onChange}) => {
+const Editor = ({heading, language, icon, color, value, onChange}) => {
 
  const[open, setOpen] = useState(true);
 

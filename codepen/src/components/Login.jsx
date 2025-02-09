@@ -84,16 +84,41 @@ const Login = () => {
     <Container>
       <Form>
         <StyledTypography variant="h4" align="left">Log In</StyledTypography>
-        <StyledTextField variant="outlined" label="Email" type="email" fullWidth />
-        <StyledTextField variant="outlined" label="Password" type="password" fullWidth />
-        <Typography variant="body2" align="right" color="white" style={{ cursor: 'pointer' }} onClick={() => alert('Forgot Password functionality to be implemented!')}>
+        <StyledTextField
+          variant="outlined"
+          label="Email"
+          type="email"
+          fullWidth
+          id="email"
+          name="email"
+        />
+        <StyledTextField
+          variant="outlined"
+          label="Password"
+          type="password"
+          fullWidth
+          id="password"
+          name="password"
+        />
+        <Typography
+          variant="body2"
+          align="right"
+          color="white"
+          style={{ cursor: 'pointer' }}
+          onClick={() => alert('Forgot Password functionality to be implemented!')}
+        >
           Forgot Password?
         </Typography>
         <StyledButton variant="contained" color="success" onClick={handleLogin}>
           Log In
         </StyledButton>
-        <Button variant="body2" align="left" color="white" onClick={() => navigate("/signup")}>
-        Don't have an account? Sign up
+        <Button
+          variant="body2"
+          align="left"
+          color="white"
+          onClick={() => navigate("/signup")}
+        >
+          Don't have an account? Sign up
         </Button>
         <StyledButton variant="text" color="secondary" onClick={() => navigate("/")}>
           Back to Home

@@ -13,24 +13,24 @@ const Result = () => {
   const [src, setSrc] = useState('');
   const { html, css, js } = useContext(DataContext);
 
-  const srcCode = `
-    <html>
-      <body>${html}</body>
-      <style>${css}</style>
-      <script>${js}</script>
-    </html>
-  `;
-
   useEffect(() => {
+    const srcCode = `
+      <html>
+        <body>${html}</body>
+        <style>${css}</style>
+        <script>${js}</script>
+      </html>
+    `;
+
     const timeout = setTimeout(() => {
       setSrc(srcCode);
     }, 1000);
 
     return () => clearTimeout(timeout);
-  }, [html, css, js, srcCode]);
+  }, [html, css, js]);
 
   return (
-    <Container>
+    <Container style={html || css || js ? null : { display: 'none' }}>
       <iframe
         srcDoc={src}
         title="output"
