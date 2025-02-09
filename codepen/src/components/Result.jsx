@@ -4,6 +4,9 @@ import { DataContext } from "../context/DataProvider";
 
 const Container = styled(Box)`
   height: 42vh;
+  @media (max-width: 768px) {
+    height: 30vh;
+  }
 `;
 
 const Result = () => {

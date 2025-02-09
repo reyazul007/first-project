@@ -16,18 +16,24 @@ import "codemirror/mode/css/css";
 import "../App.css";
 
 const Container = styled(Box)`
-flex-grow: 1;
-flex-basis: 0;
-display: flex;
-flex-direction: column;
-padding: 0 8px 8px;
-`
+  flex-grow: 1;
+  flex-basis: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 8px;
+  @media (max-width: 768px) {
+    padding: 4px 4px;
+  }
+`;
 
 
 const Heading = styled(Box)`
   background: #1d1e22;
   display: flex;
   padding: 9px 12px;
+  @media (max-width: 768px) {
+    padding: 6px 8px;
+  }
 `;
 
 const Header = styled(Box)`
