@@ -7,6 +7,8 @@ import { Box, styled } from "@mui/material";
 const Container = styled(Box)`
   display: flex;
   flex-direction: column;
+  height: 100vh; /* Full screen height */
+  overflow: hidden; /* No scrollbars */
   @media (max-width: 768px) {
     padding: 0 10px;
   }
