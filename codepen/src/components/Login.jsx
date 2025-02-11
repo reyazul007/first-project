@@ -97,10 +97,10 @@ const Login = () => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
   
     if (storedUser && storedUser.email === email && storedUser.password === password) {
-      toast.success("Login successful! Welcome back.");
+      toast.success(`Login successful! Welcome ${storedUser.username}.`);
       setTimeout(() => {
         navigate("/");
-      }, 1500); // Delay navigation by 1.5 seconds
+      }, 2000); // Delay navigation by 2 seconds
     } else {
       alert("Wrong email or password!");
     }

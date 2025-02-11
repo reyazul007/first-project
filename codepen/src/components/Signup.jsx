@@ -98,11 +98,11 @@ const SignUp = () => {
       return;
     }
 
-    localStorage.setItem("user", JSON.stringify({ email, password }));
-    toast.success("Sign-up successful! Welcome to Codepen Family.");
+    localStorage.setItem("user", JSON.stringify({ username, email, password }));
+    toast.success(`Sign-up successful! Welcome to Codepen Family`);
     setTimeout(() => {
       navigate("/login");
-    }, 1500); // Delay navigation by 1.5 seconds
+    }, 2000); // Delay navigation by 2 seconds
   };
 
   return (
