@@ -100,7 +100,7 @@ const Login = () => {
       toast.success("Login successful! Welcome back.");
       setTimeout(() => {
         navigate("/");
-      }, 2000); // Delay navigation by 2 seconds
+      }, 1500); // Delay navigation by 1.5 seconds
     } else {
       alert("Wrong email or password!");
     }

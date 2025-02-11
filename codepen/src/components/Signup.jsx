@@ -102,7 +102,7 @@ const SignUp = () => {
     toast.success("Sign-up successful! Welcome to Codepen Family.");
     setTimeout(() => {
       navigate("/login");
-    }, 2000); // Delay navigation by 2 seconds
+    }, 1500); // Delay navigation by 1.5 seconds
   };
 
   return (
