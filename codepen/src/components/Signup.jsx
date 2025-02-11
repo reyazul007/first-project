@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography, styled } from "@mui/material";
+import { Box, Button, TextField, Typography, IconButton, InputAdornment, styled } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled(Box)`
   display: flex;
@@ -15,7 +18,7 @@ const Container = styled(Box)`
 `;
 
 const Form = styled(Box)`
-   display: flex;
+  display: flex;
   flex-direction: column;
   gap: 35px;
   width: 400px; /* Adjusted to medium size */
@@ -25,13 +28,15 @@ const Form = styled(Box)`
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
+
 const StyledTypography = styled(Typography)`
-  font-family: 'Roboto', times roman ;
+  font-family: 'Roboto', times roman;
   font-weight: bold;
   font-size: 2rem;
-  color:white;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
+
 const StyledTextField = styled(TextField)`
   & .MuiOutlinedInput-root {
     & fieldset {
@@ -45,16 +50,20 @@ const StyledTextField = styled(TextField)`
     }
     & input {
       color: white;
+      background: transparent !important;
     }
   }
   & .MuiInputLabel-root {
     color: white;
   }
   & .MuiInputLabel-root.Mui-focused {
-    color:white;
+    color: white;
   }
 `;
 
+const StyledIconButton = styled(IconButton)`
+  color: white;
+`;
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -64,23 +73,42 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
-    if (formData.password !== formData.confirmPassword) {
+    const { username, email, password, confirmPassword } = formData;
+
+    if (!username || !email || !password || !confirmPassword) {
+      alert("Please fill all the required fields!");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
-    alert("Sign-up successful! Welcome to Codepen Family.");
+
+    localStorage.setItem("user", JSON.stringify({ email, password }));
+    toast.success("Sign-up successful! Welcome to Codepen Family.");
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000); // Delay navigation by 2 seconds
   };
 
   return (
     <Container>
       <Form>
-      <StyledTypography variant="h4" align="left">Sign Up</StyledTypography>
+        <StyledTypography variant="h4" align="left">Sign Up</StyledTypography>
         <StyledTextField
           variant="outlined"
           label="Username"
@@ -101,20 +129,44 @@ const SignUp = () => {
         <StyledTextField
           variant="outlined"
           label="Password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           name="password"
           value={formData.password}
           onChange={handleChange}
           fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <StyledIconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </StyledIconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <StyledTextField
           variant="outlined"
           label="Confirm Password"
-          type="password"
+          type={showConfirmPassword ? "text" : "password"}
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
           fullWidth
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <StyledIconButton
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  edge="end"
+                >
+                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                </StyledIconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <Button variant="contained" color="success" onClick={handleSubmit}>
           Sign Up
@@ -123,6 +175,7 @@ const SignUp = () => {
           Already have an account? Log In
         </Button>
       </Form>
+      <ToastContainer />
     </Container>
   );
 };

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
-const MONGO_URI = "mongodb://localhost:27017/codepen";
+require('dotenv').config();
+
+const MONGO_URI = process.env.MONGO_URI;
 
 const dbConnect = async () => {
   try {

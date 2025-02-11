@@ -1,5 +1,9 @@
-import { Box, Button, TextField, Typography, styled } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, TextField, Typography, IconButton, InputAdornment, styled } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled(Box)`
   display: flex;
@@ -38,6 +42,7 @@ const StyledTextField = styled(TextField)`
     }
     & input {
       color: white;
+      background: transparent !important;
     }
   }
   & .MuiInputLabel-root {
@@ -72,12 +77,33 @@ const StyledTypography = styled(Typography)`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
+const StyledIconButton = styled(IconButton)`
+  color: white;
+`;
+
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = () => {
-    // Add login logic here (e.g., authentication)
-    alert("Login successful! Welcome back.");
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+  
+    if (!email || !password) {
+      alert("Please fill all the required fields!");
+      return;
+    }
+  
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+  
+    if (storedUser && storedUser.email === email && storedUser.password === password) {
+      toast.success("Login successful! Welcome back.");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000); // Delay navigation by 2 seconds
+    } else {
+      alert("Wrong email or password!");
+    }
   };
 
   return (
@@ -95,10 +121,22 @@ const Login = () => {
         <StyledTextField
           variant="outlined"
           label="Password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           fullWidth
           id="password"
           name="password"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <StyledIconButton
+                  onClick={() => setShowPassword(!showPassword)}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </StyledIconButton>
+              </InputAdornment>
+            ),
+          }}
         />
         <Typography
           variant="body2"
@@ -124,6 +162,7 @@ const Login = () => {
           Back to Home
         </StyledButton>
       </Form>
+      <ToastContainer />
     </Container>
   );
 };

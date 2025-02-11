@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user');
+const authRoutes = require('./routes/Auth'); // Add this line
 
 const app = express();
 app.use(cors());
@@ -31,8 +32,9 @@ process.on('uncaughtException', (err) => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes); // Add this line
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
