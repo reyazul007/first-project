@@ -14,7 +14,6 @@ const Container = styled(Box)`
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  overflow: hidden; /* Remove scrollbar */
 `;
 
 const Form = styled(Box)`
