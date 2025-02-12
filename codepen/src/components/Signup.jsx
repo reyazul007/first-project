@@ -13,8 +13,8 @@ const Container = styled(Box)`
   height: 100vh;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Remove scrollbar */
 `;
 
 const Form = styled(Box)`
@@ -102,7 +102,7 @@ const SignUp = () => {
     toast.success(`Sign-up successful! Welcome to Codepen Family`);
     setTimeout(() => {
       navigate("/login");
-    }, 2000); // Delay navigation by 2 seconds
+    }, 1500); // Delay navigation by 1.5 seconds
   };
 
   return (
@@ -169,7 +169,7 @@ const SignUp = () => {
           }}
         />
         <Button variant="contained" color="success" onClick={handleSubmit}>
-          Sign Up
+          Submit
         </Button>
         <Button variant="body2" color="white" onClick={() => navigate("/login")}>
           Already have an account? Log In

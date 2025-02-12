@@ -13,8 +13,8 @@ const Container = styled(Box)`
   height: 100vh;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-  padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden; /* Remove scrollbar */
 `;
 
 const Form = styled(Box)`
@@ -100,7 +100,7 @@ const Login = () => {
       toast.success(`Login successful! Welcome ${storedUser.username}.`);
       setTimeout(() => {
         navigate("/");
-      }, 2000); // Delay navigation by 2 seconds
+      }, 1500); // Delay navigation by 1.5 seconds
     } else {
       alert("Wrong email or password!");
     }
