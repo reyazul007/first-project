@@ -10,14 +10,11 @@ dotenv.config();
 // Signup Route
 router.post('/signup', async (req, res) => {
   try {
-    const { username, email, password, confirmPassword } = req.body;
+    const { username, email, password } = req.body;
 
     // Validation
-    if (!username || !email || !password || !confirmPassword) {
+    if (!username || !email || !password) {
       return res.status(400).json({ error: 'All fields are required' });
-    }
-    if (password !== confirmPassword) {
-      return res.status(400).json({ error: 'Passwords do not match' });
     }
 
     // Check if user already exists
@@ -30,21 +27,16 @@ router.post('/signup', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Create user
+    // Create user (only username, email, and password)
     const user = new User({
       username,
       email,
       password: hashedPassword,
-      confirmPassword: hashedPassword, // Optional: Only if you need to store it
     });
 
     await user.save();
 
-    // Generate JWT token (optional, since you want a simple success message)
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
+    // Return success message
     res.status(201).json({ success: true, message: 'User registered successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Server error' });

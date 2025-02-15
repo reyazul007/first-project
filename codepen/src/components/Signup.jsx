@@ -79,27 +79,38 @@ const SignUp = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const validateEmail = (email) => {
+    // Regular expression for basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async () => {
     const { username, email, password, confirmPassword } = formData;
-
+  
     // Validation
     if (!username || !email || !password || !confirmPassword) {
       toast.error("Please fill all the required fields!");
       return;
     }
-
+  
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email address!");
+      return;
+    }
+  
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long!");
       return;
     }
-
+  
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
       return;
     }
-
+  
     try {
-      // Send POST request to backend
+      // Send POST request to backend (only username, email, and password)
       const response = await fetch("http://localhost:5000/api/auth/signup", {
         method: "POST",
         headers: {
@@ -109,12 +120,11 @@ const SignUp = () => {
           username,
           email,
           password,
-          confirmPassword,
         }),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
         // Handle errors from the backend
         toast.error(data.error || "Sign-up failed. Please try again.");
@@ -130,7 +140,6 @@ const SignUp = () => {
       toast.error("An error occurred. Please try again.");
     }
   };
-
   return (
     <Container>
       <Form>

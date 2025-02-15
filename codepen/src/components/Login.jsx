@@ -121,7 +121,7 @@ const Login = () => {
         toast.error(data.error || "Login failed. Please try again.");
       } else {
         // Success: Show toast and navigate to main page
-        toast.success("Login successful! Welcome ");
+        toast.success("Login successful! Welcome");
         setTimeout(() => {
           navigate("/"); // Navigate to the main page
         }, 1500); // Delay navigation by 1.5 seconds
@@ -182,7 +182,7 @@ const Login = () => {
           variant="body2"
           align="left"
           color="white"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/signup")}
         >
           Don't have an account? Sign up
         </Button>
