@@ -79,29 +79,56 @@ const SignUp = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { username, email, password, confirmPassword } = formData;
 
+    // Validation
     if (!username || !email || !password || !confirmPassword) {
-      alert("Please fill all the required fields!");
+      toast.error("Please fill all the required fields!");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters long!");
+      toast.error("Password must be at least 6 characters long!");
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
-    localStorage.setItem("user", JSON.stringify({ username, email, password }));
-    toast.success(`Sign-up successful! Welcome to Codepen`);
-    setTimeout(() => {
-      navigate("/login");
-    }, 1500); // Delay navigation by 1.5 seconds
+    try {
+      // Send POST request to backend
+      const response = await fetch("http://localhost:5000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle errors from the backend
+        toast.error(data.error || "Sign-up failed. Please try again.");
+      } else {
+        // Success: Show toast and navigate to login
+        toast.success("Sign-up successful! Welcome to Codepen");
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500); // Delay navigation by 1.5 seconds
+      }
+    } catch (error) {
+      // Handle network or server errors
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (

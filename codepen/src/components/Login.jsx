@@ -21,7 +21,7 @@ const Form = styled(Box)`
   flex-direction: column;
   gap: 35px;
   width: 400px; /* Adjusted to medium size */
-  height:500px; /* Increased height */
+  height: 500px; /* Increased height */
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
@@ -48,7 +48,7 @@ const StyledTextField = styled(TextField)`
     color: white;
   }
   & .MuiInputLabel-root.Mui-focused {
-    color:white;
+    color: white;
   }
 `;
 
@@ -69,10 +69,10 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledTypography = styled(Typography)`
-  font-family: 'Roboto', times roman ;
+  font-family: 'Roboto', times roman;
   font-weight: bold;
   font-size: 2rem;
-  color:white;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 `;
 
@@ -83,25 +83,52 @@ const StyledIconButton = styled(IconButton)`
 const Login = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-  
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async () => {
+    const { email, password } = formData;
+
+    // Validation
     if (!email || !password) {
-      alert("Please fill all the required fields!");
+      toast.error("Please fill all the required fields!");
       return;
     }
-  
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-  
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-      toast.success(`Login successful! Welcome ${storedUser.username}.`);
-      setTimeout(() => {
-        navigate("/");
-      }, 1500); // Delay navigation by 1.5 seconds
-    } else {
-      alert("Wrong email or password!");
+
+    try {
+      // Send POST request to backend
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle errors from the backend
+        toast.error(data.error || "Login failed. Please try again.");
+      } else {
+        // Success: Show toast and navigate to main page
+        toast.success("Login successful! Welcome ");
+        setTimeout(() => {
+          navigate("/"); // Navigate to the main page
+        }, 1500); // Delay navigation by 1.5 seconds
+      }
+    } catch (error) {
+      // Handle network or server errors
+      toast.error("An error occurred. Please try again.");
     }
   };
 
@@ -114,16 +141,18 @@ const Login = () => {
           label="Email"
           type="email"
           fullWidth
-          id="email"
           name="email"
+          value={formData.email}
+          onChange={handleChange}
         />
         <StyledTextField
           variant="outlined"
           label="Password"
           type={showPassword ? "text" : "password"}
           fullWidth
-          id="password"
           name="password"
+          value={formData.password}
+          onChange={handleChange}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -153,7 +182,7 @@ const Login = () => {
           variant="body2"
           align="left"
           color="white"
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/")}
         >
           Don't have an account? Sign up
         </Button>
